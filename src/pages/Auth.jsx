@@ -1,14 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useContext } from "react";
-import { AuthContext } from "../Context/AuthContext";
+// import { useContext } from "react";
+import {  useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const navigate = useNavigate()
   const [mode, setmode] = useState("signup");
-  const {signUp, user, logout, login} = useContext(AuthContext)
+  const {signUp,login} = useAuth();
   const [error, seterror] = useState(null)
   const {
     register,
@@ -25,7 +25,7 @@ const Auth = () => {
    {
     result = login(data.email,data.password)
    }
-   if(result.succes){
+   if(result.success){
     navigate("/")
    }else{
     seterror(result.error)
@@ -37,8 +37,7 @@ const Auth = () => {
     <div className="page">
       <div className="container">
         <div className="auth-container">
-          {user && <p>User logged in :{user.email}</p>}
-          <button onClick={()=> logout()}>Logout</button>
+         
           <h1 className="page-title">
             {mode === "signup" ? "Sign Up" : "Login"}
           </h1>
