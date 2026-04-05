@@ -72,7 +72,7 @@ const Auth = () => {
                   },
                   maxLength:{
                     value:12,
-                    message:"Password must be less then 12 characters"
+                    message:"Password must be less than 12 characters"
                   }
                 })}
               />

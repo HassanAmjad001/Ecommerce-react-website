@@ -1,20 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "../Context/CartContext";
 
-const ProductCards = ({ products }) => {
+const ProductCards = ({ product }) => {
+  const { addToCart, cartItems } = useCart();
+  const productInCart= cartItems.find((items)=>items.id === product.id)
+  const productQuantityLabel = productInCart ? `(${productInCart.quantity})`: ""
   return (
     <div className="product-card">
       <img
-        src={products.image}
+        src={product.image}
         className="product-card-image"
-        alt={products.name}
+        alt={product.name}
       />
       <div className="product-card-content">
-        <h3 className="product-card-name">{products.name}</h3>
-        <p className="product-card-price">${products.price}</p>
+        <h3 className="product-card-name">{product.name}</h3>
+        <p className="product-card-price">${product.price}</p>
         <div className="product-card-actions">
-          <Link className="btn btn-secondary" to={`/products/${products.id}`}>View Details</Link>
-          <button className="btn btn-primary">Add to Cart</button>
+          <Link className="btn btn-secondary" to={`/products/${product.id}`}>
+            View Details
+          </Link>
+          <button
+            className="btn btn-primary"
+            onClick={() => addToCart(product.id)}
+          >
+            Add to Cart {productQuantityLabel}
+          </button>
         </div>
       </div>
     </div>
